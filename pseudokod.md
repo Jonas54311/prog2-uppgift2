@@ -37,17 +37,140 @@ KLASS Cafe
     
 KLASS Produkt
     HA namn
-    HA mängd
+    HA privat mängd
     HA pris
     HA DICTIONARY recept
     METOD skapa_produkt
         OM det finns tillräkligt med ingredienser
             ta bort ingredienserna som används
             mängd blir mer
+    METOD få_mängd
+        mängd går upp med ett visst värde
+    METOD förlora_mängd
+        OM mängden är mer än värdet det ska gå ned med
+            mängden går ner med ett visst värde
+    METOD get_mängd
+        RETURNA mängd
 
 SUPERKLASS Person
     HA namn
-    HA tålamod
+    HA privat tålamod
+    METOD få_beställning
+        kolla alla produkter i beställning
+        OM man har tillräkligt av alla produkter för att bli klar med beställningen
+            spelaren får pengar baserat på säljvärdet avv alla produkter och hur många man säljer
+            spelaren förlorar mängd av produkter
+        ANNARS
+            tappa tålamod
+    METOD förlora tålamod
+        tappa en viss mängd tålamod
+    METOD start_tålamod
+        HE tålamod till ett visst värde
+    METOD get_tålamod   
+        RETURNA tålamod
+    METOD bli utsparkad
+        [definera senare]
 
-SUBKLASS Normal
-    HA 
+SUBKLASS Normal_Person
+    HA DICTIONARY beställning
+        DICTIONARY kaffe
+            mängd
+            kaffe objektet
+        DICTIONARY tårta
+            mängd
+            tårta objektet
+        DICTIONARY kaka
+            mängd
+            kaka objekt
+        DICTIONARY muffins
+            mängd
+            muffins objekt
+    METOD välj_beställning
+        REPEATA en random mängd gånger mellan 1 och 3
+            en rändom produkts mängd i beställningen får + 1
+
+SUBKLASS Hungrig_person
+    HA DICTIONARY beställning
+        DICTIONARY kaffe
+            mängd
+            kaffe objektet
+        DICTIONARY tårta
+            mängd
+            tårta objektet
+        DICTIONARY kaka
+            mängd
+            kaka objekt
+        DICTIONARY muffins
+            mängd
+            muffins objektet
+    METOD välj_beställning
+        REPEATA en random mängd gånger mellan 3 och 6
+            en rändom produkts mängd i beställningen får + 1
+
+SUBKLASS Korkad_person
+    HA DICTIONARY beställning (Inga av dom här kommer att gå att göra)
+        DICTIONARY McHappy McMeal
+            mängd
+            McHappy objektet
+        DICTIONARY Uuuuuuuuuuhhhh
+            mängd
+            Uuuuuuuuuuhhhh objektet
+        DICTIONARY kycklingvingar, medium rare
+            mängd
+            kycklingvingar objektet
+        DICTIONARY blinkersvätska
+            mängd
+            blinkersvätska objektet
+    METOD välj_beställning
+        REPEATA en random mängd gånger mellan 1 och 2
+            en rändom produkts mängd i beställningen får + 1
+
+SUBKLASS Kaffeberoende_person
+    HA DICTIONARY beställning
+        DICTIONARY kaffe
+            mängd
+            kaffe objektet
+    METOD välj_beställning
+        kaffe mängd blir en siffra mellan 3 och 6
+
+SUBKLASS Marie_antoinette
+    HA DICTIONARY beställning
+        DICTIONARY tårts
+            mängd
+            tårta objektet
+    METOD välj_beställning
+        tårt mängd blir en siffra mellan 3 och 6
+
+LISTA produkter
+    OBJEKT Kaffe
+    OBJEKT Tårta
+    OBJEKT Kaka
+    OBJEKT Muffins
+
+LISTA personer
+    LISTA
+        KLASSEN Normal
+        vikt
+    LISTA
+        KLASSEN Hungrig
+        vikt
+    LISTA
+        KLASSEN Korkad
+        vikt
+    LISTA
+        KLASSEN Kaffeberoende
+        vikt
+    LISTA
+        KLASSEN Marie_antoinette
+        vikt
+
+LISTA namn
+
+LISTA nuvarande_personer
+    tom
+
+LOOPA tills spelet är klart
+    OM längden av nuvarande_personer är mindre eller lika med 3 OCH en random siffra mellan 0 och 1 är mindre eller lika med 1 / längden av nuvarande personer + 1
+        lägg till ett person objekt i listan med en random viktad person subklass och ett random namn från namn listan och random tålamod mellan 3 och 6
+        använd det person objektets välj_beställning metod
+    
