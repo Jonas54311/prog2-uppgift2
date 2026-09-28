@@ -7,10 +7,10 @@ KLASS Cafe
         DICTIONARY mjöl
             mängd
             pris
-        DICTIONARY ägg
+        DICTIONARY socker
             mängd
             pris
-        DICTIONARY socker
+        DICTIONARY ägg
             mängd
             pris
         DICTIONARY bakpulver
@@ -24,13 +24,13 @@ KLASS Cafe
         OM man har tillräkligt med pengar
             ta bort den mängden pengar
             lägg till den mängden ingredienser
-    METOD använd_ingredienser
+    METOD sänk_ingredienser
         förlora en viss mängd ingredienser
     METOD get_ingredienser
         RETURN hur mycket det finns av en viss ingrediens
-    METOD tjäna_pengar
+    METOD höj_pengar
         få mer pengar
-    METOD spendera_pengar
+    METOD sänk_pengar
         tappa pengar
     METOD get_pengar
         RETURN mängden pengar
@@ -41,12 +41,14 @@ KLASS Produkt
     HA pris
     HA DICTIONARY recept
     METOD skapa_produkt
-        OM det finns tillräkligt med ingredienser
-            ta bort ingredienserna som används
-            mängd blir mer
-    METOD få_mängd
+        TA IN den mängd av produkter som ska skapas
+        repetera den mängden gånger
+            OM det finns tillräkligt med ingredienser
+                ta bort ingredienserna som används
+                mängd blir mer
+    METOD höj_mängd
         mängd går upp med ett visst värde
-    METOD förlora_mängd
+    METOD sänk_mängd
         OM mängden är mer än värdet det ska gå ned med
             mängden går ner med ett visst värde
     METOD get_mängd
@@ -60,16 +62,17 @@ SUPERKLASS Person
         OM man har tillräkligt av alla produkter för att bli klar med beställningen
             spelaren får pengar baserat på säljvärdet avv alla produkter och hur många man säljer
             spelaren förlorar mängd av produkter
+            ta bort detta person objekt från personer listan
         ANNARS
             tappa tålamod
-    METOD förlora tålamod
+    METOD sänk_tålamod
         tappa en viss mängd tålamod
     METOD start_tålamod
         HE tålamod till ett visst värde
     METOD get_tålamod   
         RETURNA tålamod
-    METOD bli utsparkad
-        [definera senare]
+    METOD bli_utsparkad
+        ta bort detta person objekt från personer listan
 
 SUBKLASS Normal_Person
     HA DICTIONARY beställning
@@ -173,4 +176,15 @@ LOOPA tills spelet är klart
     OM längden av nuvarande_personer är mindre eller lika med 3 OCH en random siffra mellan 0 och 1 är mindre eller lika med 1 / längden av nuvarande personer + 1
         lägg till ett person objekt i listan med en random viktad person subklass och ett random namn från namn listan och random tålamod mellan 3 och 6
         använd det person objektets välj_beställning metod
-    
+    printa alla personer och deras beställningar och alla produkter, ingredienser och pengar som spelaren har
+    spelaren får välja en sak att göra
+        köpa nya ingredienser
+            använd cafe objektets köp_ingredienser metod
+        gör fler produkter
+            spelaren väljer vilka och hur många hen ska baka av varje produkt
+            änvänd produkt objekternas skapa_produkt metod med den mängden av produkter som ska skapas
+        ge beställning
+            spelaren väljer en person och den använder sin få_beställning metod
+        sparka ut en person
+            spelaren väljer en person och den använder sin bli_utsparkad metod
+    alla personer i nuvarande_personder använder sänk_tålamod
