@@ -1,10 +1,10 @@
-class Superklass:
-    def metod(self):
-        print(self.value)
+class klass1:
+    def __init__(self, gteh):
+        self.gteh = gteh
 
-class Subklass(Superklass):
-    def __init__(self):
-        self.value = 0
+class klass2:
+    def __init__(self, as=klass1(6)):
+        self.asdfgd = as
 
-o = Subklass()
-o.metod()
+objekt = klass2()
+print(object.asdfgd.gteh)

@@ -51,10 +51,9 @@ KLASS Produkt
     HA DICTIONARY recept
     METOD skapa_produkt
         TA IN den mängd av produkter som ska skapas
-        repetera den mängden gånger
-            OM det finns tillräkligt med ingredienser
-                ta bort ingredienserna som används
-                mängd blir mer
+        OM det finns tillräkligt med ingredienser
+            ta bort ingredienserna som används
+            mängd blir mer
     METOD höj_mängd
         mängd går upp med ett visst värde
     METOD sänk_mängd
