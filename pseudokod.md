@@ -19,6 +19,15 @@ KLASS Cafe
         DICTIONARY vispgrädde
             mängd
             pris
+    HA DICTIONARY produkter
+        kaffe
+            OBJEKT kaffe
+        tårta
+            OBJEKT tårta
+        muffins
+            OBJEKT muffins
+        kaka
+            OBJEKT kaka
     METOD köp_ingredienser
         VÄLJ vilka och mängd av ingredienser
         OM man har tillräkligt med pengar
@@ -144,13 +153,7 @@ SUBKLASS Marie_antoinette
     METOD välj_beställning
         tårt mängd blir en siffra mellan 3 och 6
 
-LISTA produkter
-    OBJEKT Kaffe
-    OBJEKT Tårta
-    OBJEKT Kaka
-    OBJEKT Muffins
-
-LISTA personer
+LISTA persontyper
     LISTA
         KLASSEN Normal
         vikt
@@ -172,7 +175,7 @@ LISTA namn
 LISTA nuvarande_personer
     tom
 
-LOOPA tills spelet är klart
+LOOPA tills pängar är mer än en trilljon
     OM längden av nuvarande_personer är mindre eller lika med 3 OCH en random siffra mellan 0 och 1 är mindre eller lika med 1 / längden av nuvarande personer + 1
         lägg till ett person objekt i listan med en random viktad person subklass och ett random namn från namn listan och random tålamod mellan 3 och 6
         använd det person objektets välj_beställning metod
