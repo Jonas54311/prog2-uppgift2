@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choices
 
 class Cafe:
     def __init__(self, kaffe, tårta, muffins, kaka):
@@ -93,10 +93,114 @@ class Person:
     def get_tålamod(self):
         return self.__tålamod
 
+    def set_beställning(self):
+        for produkt in choices(self.beställning.keys(), k=randint(self.beställningslängd["låg"], self.beställningslängd["hög"])):
+            self.beställning[produkt] += 1
+
     #sparka_ut()
 
 class Normal_person(Person):
     def __init__(self, namn=""):
         super().__init__(namn)
+        self.beställning = {
+            "kaffe": {
+                "mängd": 0,
+                "objekt": cafe.produkter["kaffe"]
+            },
+            "tårta": {
+                "mängd": 0,
+                "objekt": cafe.produkter["tårta"]
+            },
+            "kaka": {
+                "mängd": 0,
+                "objekt": cafe.produkter["kaka"]
+            },
+            "muffins": {
+                "mängd": 0,
+                "objekt": cafe.produkter["muffins"]
+            },
+        }
+        self.beställningslängd = {"låg": 1,
+                                  "hög": 3}
 
-cafe = Cafe()
+class Hungrig_person(Person):
+    def __init__(self, namn=""):
+        super().__init__(namn)
+
+        self.beställning = {
+            "kaffe": {
+                "mängd": 0,
+                "objekt": cafe.produkter["kaffe"]
+            },
+            "tårta": {
+                "mängd": 0,
+                "objekt": cafe.produkter["tårta"]
+            },
+            "kaka": {
+                "mängd": 0,
+                "objekt": cafe.produkter["kaka"]
+            },
+            "muffins": {
+                "mängd": 0,
+                "objekt": cafe.produkter["muffins"]
+            },
+        }
+        self.beställningslängd = {"låg": 3,
+                                  "hög": 6}
+
+class Korkad_person(Person):
+    def __init__(self, namn=""):
+        super().__init__(namn)
+        self.beställning = {
+            "mcmeal": {
+                "mängd": 0,
+                "objekt": fejk_produkter["mcmeal"]
+            },
+            "uh": {
+                "mängd": 0,
+                "objekt": fejk_produkter["uh"]
+            },
+            "kycklingvingar": {
+                "mängd": 0,
+                "objekt": fejk_produkter["kycklingvingar"]
+            },
+            "blinkarvätska": {
+                "mängd": 0,
+                "objekt": fejk_produkter["blinkarvätska"]
+            },
+        }
+        self.beställningslängd = {"låg": 1,
+                                  "hög": 5}
+
+class Kaffeberoende_person(Person):
+    def __init__(self, namn=""):
+        super().__init__(namn)
+        self.beställning = {
+            "kaffe": {
+                "mängd": 0,
+                "objekt": cafe.produkter["kaffe"]
+            }
+        }
+        self.beställningslängd = {"låg": 2,
+                                  "hög": 8}
+
+class Marie_antoinette(Person):
+    def __init__(self, namn=""):
+        super().__init__(namn)
+        self.beställning = {
+            "tårta": {
+                "mängd": 0,
+                "objekt": cafe.produkter["tårta"]
+            }
+        }
+        self.beställningslängd = {"låg": 3,
+                                  "hög": 6}
+
+fejk_produkter = {
+    "mcmeal": Produkt("McHappy McMeal"),
+    "uh": Produkt("Uuuuuuuuhhh"),
+    "kycklingvingar": Produkt("Kycklingvingar, medium rare"),
+    "blinkarvätska": Produkt("Blinkarvätska")
+}
+
+cafe = Cafe(Produkt("kaffe", 10, {"kaffebönor": 5}), Produkt("tårta", 30, {}))
