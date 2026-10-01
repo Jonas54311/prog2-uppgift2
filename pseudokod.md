@@ -39,8 +39,6 @@ KLASS Cafe
         RETURN hur mycket det finns av en viss ingrediens
     METOD höj_pengar
         få mer pengar
-    METOD sänk_pengar
-        tappa pengar
     METOD get_pengar
         RETURN mängden pengar
     
@@ -54,8 +52,6 @@ KLASS Produkt
         OM det finns tillräkligt med ingredienser
             ta bort ingredienserna som används
             mängd blir mer
-    METOD höj_mängd
-        mängd går upp med ett visst värde
     METOD sänk_mängd
         OM mängden är mer än värdet det ska gå ned med
             mängden går ner med ett visst värde
@@ -75,7 +71,7 @@ SUPERKLASS Person
             tappa tålamod
     METOD sänk_tålamod
         tappa en viss mängd tålamod
-    METOD start_tålamod
+    METOD set_tålamod
         HE tålamod till ett visst värde
     METOD get_tålamod   
         RETURNA tålamod
