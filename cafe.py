@@ -1,4 +1,4 @@
-from random import randint, choices
+from random import randint, choices, random, choice
 
 class Cafe:
     def __init__(self, kaffe, tårta, muffins, kaka):
@@ -77,18 +77,20 @@ class Produkt:
         return self.__mängd
 
 class Person:
-    def __init__(self, namn=""):
+    def __init__(self, namn="", tålamod=0):
         self.namn = namn
-        self.__tålamod = 0
+        self.__tålamod = tålamod
 
-    #få_beställning
+    def få_beställning(self):
+        for produkt in self.beställning:
+            if produkt["mängd"] > produkt["objekt"].get_mängd():
+                return False
+        nuvarande_personer.remove(self)
+        return True
 
     def sänk_tålamod(self):
         self.__tålamod -= 1
-        #kåd för då tålamod blir 0
-
-    def set_tålamod(self):
-        self.__tålamod = randint(3, 5)
+        nuvarande_personer.remove(self)
         
     def get_tålamod(self):
         return self.__tålamod
@@ -97,7 +99,8 @@ class Person:
         for produkt in choices(self.beställning.keys(), k=randint(self.beställningslängd["låg"], self.beställningslängd["hög"])):
             self.beställning[produkt] += 1
 
-    #sparka_ut()
+    def bli_utsparkad(self):
+        nuvarande_personer.remove(self)
 
 class Normal_person(Person):
     def __init__(self, namn=""):
@@ -203,4 +206,44 @@ fejk_produkter = {
     "blinkarvätska": Produkt("Blinkarvätska")
 }
 
-cafe = Cafe(Produkt("kaffe", 10, {"kaffebönor": 5}), Produkt("tårta", 30, {}))
+cafe = Cafe(Produkt("kaffe", 10, {"kaffebönor": 5}), Produkt("tårta", 20, {"ägg": 4, "socker": 2, "mjöl": 1, "bakpulver": 1, "grädde": 2}), Produkt("muffins", 10, {"ägg": 2, "socker": 2, "mjöl": 3, "bakpulver": 2}), Produkt("kaka", 5, {"socker": 1, "ägg": 1, "mjöl": 2}))
+
+persontyper = [
+    Normal_person,
+    Hungrig_person,
+    Korkad_person,
+    Kaffeberoende_person,
+    Marie_antoinette
+]
+
+personvikter = [6, 5, 2, 3, 1]
+
+nuvarande_personer = []
+
+namn = [
+    "Karl",
+    "Erik",
+    "Lars",
+    "Anders",
+    "Per",
+    "Mikael",
+    "Johan",
+    "Olof",
+    "Nils",
+    "Jan",
+    "Maria",
+    "Elisabeth",
+    "Anna",
+    "Kristina",
+    "Margareta",
+    "Eva",
+    "Linnea",
+    "Karin",
+    "Brigitta",
+    "Marie"
+]
+
+while cafe.get_pengar < 100000000000000000000:
+    if len(nuvarande_personer) < 3 and 1 / (len(nuvarande_personer) + 1) >= random():
+        nuvarande_personer.append(choices(persontyper, weights=personvikter, k=1)(choice(namn), randint(3, 6)))
+        nuvarande_personer[len(nuvarande_personer) - 1].set_beställning()

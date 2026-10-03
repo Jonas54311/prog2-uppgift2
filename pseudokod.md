@@ -171,7 +171,7 @@ LISTA nuvarande_personer
     tom
 
 LOOPA tills pängar är mer än en trilljon
-    OM längden av nuvarande_personer är mindre eller lika med 3 OCH en random siffra mellan 0 och 1 är mindre eller lika med 1 / längden av nuvarande personer + 1
+    OM längden av nuvarande_personer är mindre än 3 OCH en random siffra mellan 0 och 1 är mindre eller lika med 1 / längden av nuvarande personer + 1
         lägg till ett person objekt i listan med en random viktad person subklass och ett random namn från namn listan och random tålamod mellan 3 och 6
         använd det person objektets välj_beställning metod
     printa alla personer och deras beställningar och alla produkter, ingredienser och pengar som spelaren har
