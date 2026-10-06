@@ -1,4 +1,5 @@
 from random import randint, choices, random, choice
+from os import system
 
 class Cafe:
     def __init__(self, kaffe, tårta, muffins, kaka):
@@ -103,8 +104,8 @@ class Person:
         nuvarande_personer.remove(self)
 
 class Normal_person(Person):
-    def __init__(self, namn=""):
-        super().__init__(namn)
+    def __init__(self, namn="", tålamod=0):
+        super().__init__(namn, tålamod)
         self.beställning = {
             "kaffe": {
                 "mängd": 0,
@@ -127,8 +128,8 @@ class Normal_person(Person):
                                   "hög": 3}
 
 class Hungrig_person(Person):
-    def __init__(self, namn=""):
-        super().__init__(namn)
+    def __init__(self, namn="", tålamod=0):
+        super().__init__(namn, tålamod)
 
         self.beställning = {
             "kaffe": {
@@ -152,8 +153,8 @@ class Hungrig_person(Person):
                                   "hög": 6}
 
 class Korkad_person(Person):
-    def __init__(self, namn=""):
-        super().__init__(namn)
+    def __init__(self, namn="", tålamod=0):
+        super().__init__(namn, tålamod)
         self.beställning = {
             "mcmeal": {
                 "mängd": 0,
@@ -176,8 +177,8 @@ class Korkad_person(Person):
                                   "hög": 5}
 
 class Kaffeberoende_person(Person):
-    def __init__(self, namn=""):
-        super().__init__(namn)
+    def __init__(self, namn="", tålamod=0):
+        super().__init__(namn, tålamod)
         self.beställning = {
             "kaffe": {
                 "mängd": 0,
@@ -188,8 +189,8 @@ class Kaffeberoende_person(Person):
                                   "hög": 8}
 
 class Marie_antoinette(Person):
-    def __init__(self, namn=""):
-        super().__init__(namn)
+    def __init__(self, namn="", tålamod=0):
+        super().__init__(namn, tålamod)
         self.beställning = {
             "tårta": {
                 "mängd": 0,
@@ -243,7 +244,19 @@ namn = [
     "Marie"
 ]
 
-while cafe.get_pengar < 100000000000000000000:
+while cafe.get_pengar() < 100000000000000000000:
+    system("cls")
     if len(nuvarande_personer) < 3 and 1 / (len(nuvarande_personer) + 1) >= random():
         nuvarande_personer.append(choices(persontyper, weights=personvikter, k=1)(choice(namn), randint(3, 6)))
         nuvarande_personer[len(nuvarande_personer) - 1].set_beställning()
+
+    for person in nuvarande_personer:
+        print(person.namn, person.get_tålamod)
+        for produkt in person.beställning.keys():
+            print(produkt, person.beställning[produkt]["mängd"])
+    print(cafe.get_pengar())
+    for produkt in cafe.produkter:
+        print(produkt.namn, produkt.get_mängd())
+    for ingrediens in cafe.ingredienser.keys():
+        print(ingrediens, cafe.ingredienser[ingrediens]["mängd"])
+    input("")
